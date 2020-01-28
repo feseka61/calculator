@@ -33,7 +33,7 @@ function operate(operator, num1, num2) {
             return divide(num1, num2);
             break;
         case 'default':
-            return num1;
+            return num2;
             break;
     }
 }
@@ -41,7 +41,8 @@ function operate(operator, num1, num2) {
 let operand1 = 0;
 let operand2 = 0;
 let tempResult = 0;
-let operatorSym = ''
+let operatorSym = '';
+let counterOp = 0;
 
 let displayScreen = document.getElementById('display');
 let historyScreen = document.getElementById('history')
@@ -63,9 +64,32 @@ let currentOperator = 'default';
 
 for (let i = 0; i < operatorButtons.length; i++) {
     operatorButtons[i].addEventListener('click', (e) => {
-        operand1 = +displayScreen.textContent;
+        if (counterOp == 0) {
+            operand1 = +displayScreen.textContent;
+            historyScreen.textContent += operand1 + ' ';
+        } else {
+            operand2 = +displayScreen.textContent;
+            operand1 = operate(currentOperator, operand1, operand2);
+            historyScreen.textContent = operand1;
+        }
         currentOperator = operatorButtons[i].value;
+        counterOp += 1;
+        switch (currentOperator) {
+            case 'add':
+                operatorSym = ' + '
+                break;
+            case 'subtract':
+                operatorSym = ' - '
+                break;
+            case 'multiply':
+                operatorSym = ' x '
+                break;
+            case 'divide':
+                operatorSym = ' / '
+                break;
+        }
         displayScreen.textContent = '0';
+        
     });
 };
 
@@ -76,13 +100,17 @@ for (let i = 0; i < functionButtons.length; i++) {
         switch (functionButtons[i].value) {
             case 'equals':
                 operand2 = +displayScreen.textContent;
-                displayScreen.textContent = operate(currentOperator, operand1, operand2);
+                tempResult = operate(currentOperator, operand1, operand2);
+                displayScreen.textContent = tempResult;
+                historyScreen.textContent += operatorSym + ' ' + operand2
                 break;
             case 'clear':
                 operand1 = 0;
                 operand2 = 0;
+                currentOperator = 'default';
                 displayScreen.textContent = 0;
-                historyScreen.textContent = 0;
+                historyScreen.textContent = '';
+                counterOp = 0;
                 break;
             case 'delete':
                 displayScreen.textContent = displayScreen.textContent.slice(0,-1);
