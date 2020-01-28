@@ -1,3 +1,13 @@
-body {
-    background-color: red;
+div.main {
+    width: 250px;
+    height: 375px;
+    border: solid 1px;
+}
+
+div.screen {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    border: solid 1px;
+    padding: 7 20 7 20;
 }

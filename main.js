@@ -1,17 +1,17 @@
 function add(num1, num2) {
-    return num1 + num2
+    return parseFloat((num1 + num2).toFixed(1))
 }
 
 function subtract(num1, num2) {
-    return num1 - num2
+    return parseFloat((num1 - num2).toFixed(1))
 }
 
 function multiply(num1, num2) {
-    return num1 * num2
+    return parseFloat((num1 * num2).toFixed(1))
 }
 
 function divide(num1, num2) {
-    return num1 / num2
+    return parseFloat((num1 / num2).toFixed(1))
 }
 
 function operate(operator, num1, num2) {
@@ -30,7 +30,11 @@ function operate(operator, num1, num2) {
             break;
         case 'divide':
             operatorSym = ' / '
-            return divide(num1, num2);
+            if (num2 === 0) {
+                return 'Divided by 0 ERROR!'
+            } else {
+                return divide(num1, num2);
+            }
             break;
         case 'default':
             return num2;
@@ -50,6 +54,9 @@ let historyScreen = document.getElementById('history')
 let numberButtons = Array.from(document.querySelectorAll('button.number'));
 
 for (let i = 0; i < numberButtons.length; i++) {
+    if (i === 9) {
+        continue
+    };
     numberButtons[i].addEventListener('click', (e) => {
         if (displayScreen.textContent === '0') {
             displayScreen.textContent = numberButtons[i].value;
@@ -58,6 +65,12 @@ for (let i = 0; i < numberButtons.length; i++) {
         };
     });
 };
+let dotButton = numberButtons[9]
+dotButton.addEventListener('click', (e) => {
+    if (!displayScreen.textContent.includes('.')) {
+        displayScreen.textContent += dotButton.value;
+    }
+});
 
 let operatorButtons = Array.from(document.querySelectorAll('button.operator'));
 let currentOperator = 'default';
@@ -66,11 +79,11 @@ for (let i = 0; i < operatorButtons.length; i++) {
     operatorButtons[i].addEventListener('click', (e) => {
         if (counterOp == 0) {
             operand1 = +displayScreen.textContent;
-            historyScreen.textContent += operand1 + ' ';
+            historyScreen.textContent = operand1;
         } else {
             operand2 = +displayScreen.textContent;
             operand1 = operate(currentOperator, operand1, operand2);
-            historyScreen.textContent = operand1;
+            historyScreen.textContent = operand1
         }
         currentOperator = operatorButtons[i].value;
         counterOp += 1;
@@ -102,14 +115,18 @@ for (let i = 0; i < functionButtons.length; i++) {
                 operand2 = +displayScreen.textContent;
                 tempResult = operate(currentOperator, operand1, operand2);
                 displayScreen.textContent = tempResult;
-                historyScreen.textContent += operatorSym + ' ' + operand2
+                if (currentOperator === 'default') {
+                    historyScreen.textContent = operand2;
+                } else {
+                    historyScreen.textContent = operand1 + ' ' + operatorSym + ' ' + operand2;
+                }
                 break;
             case 'clear':
                 operand1 = 0;
                 operand2 = 0;
                 currentOperator = 'default';
                 displayScreen.textContent = 0;
-                historyScreen.textContent = '';
+                historyScreen.textContent = 0;
                 counterOp = 0;
                 break;
             case 'delete':
