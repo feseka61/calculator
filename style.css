@@ -1,13 +1,84 @@
+body {
+    background-image: url(background.jpeg);
+    background-size: cover;
+}
+h1 {
+    text-align: center;
+    color: white;
+    background-color: #363636;
+    width: 300px;
+    margin-left: 38%;
+}
+
 div.main {
-    width: 250px;
-    height: 375px;
+    margin-left: 40%;
+    width: 240px;
+    height: 410px;
     border: solid 1px;
+    background-color: #000000;
+    border-radius: 15px;
 }
 
 div.screen {
-    position: relative;
-    width: 200px;
+    text-align: right;
+    margin-top: 13px;
+    margin-left: 14px;
+    width: 210px;
     height: 100px;
     border: solid 1px;
-    padding: 7 20 7 20;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+}
+
+div.buttons {
+    margin-top: 10px;
+    margin-left: 14px;
+}
+
+button {
+    width: 50px;
+    height: 50px;
+    margin-top: 4px;
+    border-radius: 5px;
+}
+
+#clear {
+    width: 104px;
+    height: 50px;
+}
+
+#equals {
+    width: 104px;
+    height: 50px;
+}
+
+.monitor {
+    margin: 0;
+    padding-right: 6px;
+}
+
+#display {
+    border-top: solid 1px;
+    height: 0px;
+    font-size: 40px;
+}
+
+#history {
+    height: 40px;
+    font-size: 30px;
+    background-color: #b0b0b0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+button.func {
+    background-color: #404040;
+}
+
+button.operator {
+    background-color: #404040;
+}
+
+button.number {
+    background-color: #e0e0e0;
 }
